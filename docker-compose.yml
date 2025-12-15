@@ -1,0 +1,26 @@
+services:
+
+  api:
+    build: .
+    container_name: api_tempo
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+    restart: always
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_tempo
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: tempo_db
+      MYSQL_USER: tempo
+      MYSQL_PASSWORD: tempo123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
